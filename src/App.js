@@ -1,24 +1,37 @@
-import logo from './logo.svg';
+import { useInsertionEffect, useState } from 'react';
 import './App.css';
 
 function App() {
+
+  const [number, setNumber] = useState(1);
+  const [fizzbuzz, setFizzbuzz] = useState(number);
+
+  useInsertionEffect(() => {
+    if (number % 3 === 0 && number % 5 === 0) {
+      setFizzbuzz("fizzbuz")
+    } else if (number % 3 === 0) {
+      setFizzbuzz("fizz")
+    } else if (number % 5 === 0) {
+      setFizzbuzz("buzz")
+    } else {
+      setFizzbuzz(number);
+    }
+  }, [number])
+
+  const handleInc = () => {
+    setNumber(number + 1);
+  }
+
+  const handleDec = () => {
+    setNumber(number - 1);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <button value={number} onClick={handleInc}>+ Add</button>
+      <button value={number} onClick={handleDec}>- Dec</button>
+      <h2>FizzBuzz is: {fizzbuzz}</h2>
+    </>
   );
 }
 
